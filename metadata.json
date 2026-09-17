@@ -1,0 +1,6 @@
+{
+  "name": "VoxAcademy - Public Speaking & Debate Academy",
+  "description": "Elite training in public speaking, competitive debate, and executive communication for the leaders of tomorrow.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
