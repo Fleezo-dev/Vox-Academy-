@@ -23,33 +23,41 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
 
   // Strict Phone Validation Handler
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rawVal = e.target.value;
-    // Disallow and strip any alphabetical letters or invalid symbols immediately
-    const filtered = rawVal.replace(/[^0-9+() -]/g, '');
+    const val = e.target.value;
+    setPhone(val);
 
-    if (/[a-zA-Z]/.test(rawVal)) {
-      setPhoneError('Letters are not permitted. Please enter valid phone numbers only.');
-    } else {
-      setPhoneError(null);
+    if (/[a-zA-Z]/.test(val)) {
+      setPhoneError('Alphabets are not allowed. Please enter numbers only (7 to 15 digits).');
+      return;
     }
 
-    setPhone(filtered);
+    if (/[^0-9+() -]/.test(val)) {
+      setPhoneError('Invalid characters. Only numbers, +, spaces, (), and - are permitted.');
+      return;
+    }
 
-    if (filtered.length > 0) {
-      const phonePattern = /^[+]?[0-9\s\-()]{7,15}$/;
-      if (!phonePattern.test(filtered) && filtered.length > 3) {
-        setPhoneError('Telephone format must contain 7 to 15 digits (e.g. +44 1865 270000).');
-      } else {
-        setPhoneError(null);
-      }
+    const digitsOnly = val.replace(/[^0-9]/g, '');
+    if (val.length > 0 && digitsOnly.length < 7) {
+      setPhoneError('Telephone format must contain 7 to 15 digits (e.g. +44 1865 270000).');
+    } else if (digitsOnly.length > 15) {
+      setPhoneError('Telephone number exceeds maximum length of 15 digits.');
+    } else {
+      setPhoneError(null);
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (/[a-zA-Z]/.test(phone)) {
+      setPhoneError('Alphabets are not permitted in telephone numbers. Please enter numbers only.');
+      return;
+    }
+
+    const digitsOnly = phone.replace(/[^0-9]/g, '');
     const phonePattern = /^[+]?[0-9\s\-()]{7,15}$/;
-    if (!phonePattern.test(phone)) {
-      setPhoneError('Please enter a valid telephone number (7 to 15 digits).');
+    if (!phone || digitsOnly.length < 7 || digitsOnly.length > 15 || !phonePattern.test(phone)) {
+      setPhoneError('Please enter a valid telephone number (7 to 15 digits, e.g. +44 1865 270000).');
       return;
     }
 
@@ -133,11 +141,11 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
               required
               value={phone}
               onChange={handlePhoneChange}
-              pattern="^[+]?[0-9\s\-()]{7,15}$"
-              title="Telephone number must be 7 to 15 digits (e.g. +44 1865 270000 or (212) 555-0198)"
               placeholder="+44 1865 270000 or (212) 555-0198"
               className={`w-full px-4 py-2.5 rounded-xl bg-[#0e131f] border text-white text-sm focus:outline-none transition-colors ${
-                phoneError ? 'border-rose-500 focus:border-rose-500' : 'border-white/15 focus:border-indigo-500'
+                phoneError 
+                  ? 'border-rose-500 bg-rose-500/10 text-rose-300 focus:border-rose-500' 
+                  : 'border-white/15 focus:border-indigo-500'
               }`}
             />
             {phoneError ? (

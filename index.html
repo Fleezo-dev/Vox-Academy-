@@ -11,16 +11,1999 @@
     <meta property="og:image" content="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?q=80&w=1200&auto=format&fit=crop" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Google Fonts: Plus Jakarta Sans & Playfair Display for academic luxury tone -->
+    <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
 
     <!-- FontAwesome 6.5.1 CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Tailwind CSS CDN for instant standalone execution without build tools -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+              serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            },
+            colors: {
+              brand: {
+                dark: '#0B0F19',
+                surface: '#121826',
+                deep: '#0e131f',
+              }
+            }
+          }
+        }
+      }
+    </script>
+
+    <!-- Standalone CSS Stylesheet -->
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body dir="ltr" class="bg-[#0B0F19] text-[#F8FAFC] antialiased selection:bg-indigo-600 selection:text-white min-h-screen">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+
+    <!-- ==================== 1. NAVIGATION / HEADER ==================== -->
+    <header class="fixed top-0 inset-x-0 z-50 bg-[#0B0F19]/90 border-b border-white/10 backdrop-blur-md" dir="ltr">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+          
+          <!-- Logo -->
+          <a href="#" class="flex items-center gap-3 group">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-700 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/30 border border-white/20 group-hover:scale-105 transition-transform">
+              <span class="text-xl">V</span>
+            </div>
+            <span class="text-2xl font-bold tracking-tight text-white font-sans">
+              Vox<span class="text-indigo-400 font-medium ml-0.5">Academy</span>
+            </span>
+          </a>
+
+          <!-- Desktop Navigation Links -->
+          <nav class="hidden lg:flex items-center gap-7">
+            <!-- Home with Dropdown -->
+            <div id="home-dropdown-wrapper" class="relative py-2">
+              <button class="text-sm font-semibold text-white hover:text-indigo-400 flex items-center gap-1.5 focus:outline-none transition-colors cursor-pointer">
+                <span>Home</span>
+                <i class="fa-solid fa-chevron-down text-[10px] text-slate-400"></i>
+              </button>
+
+              <div id="home-dropdown-menu" class="absolute top-full left-0 w-56 py-2 bg-[#121826] border border-white/15 rounded-xl shadow-2xl backdrop-blur-xl animate-fade-in hidden">
+                <a href="#" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-medium text-slate-200 hover:text-white hover:bg-white/5 transition-colors">
+                  <i class="fa-solid fa-house text-indigo-400 text-xs w-4"></i>
+                  <span>Home (Classic)</span>
+                </a>
+                <a href="#about" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-medium text-slate-200 hover:text-white hover:bg-white/5 transition-colors">
+                  <i class="fa-solid fa-landmark text-indigo-400 text-xs w-4"></i>
+                  <span>About Global Path</span>
+                </a>
+                <a href="#applicant-dashboard" class="flex items-center gap-2.5 px-4 py-2.5 text-xs font-medium text-slate-200 hover:text-white hover:bg-white/5 transition-colors">
+                  <i class="fa-solid fa-file-shield text-indigo-400 text-xs w-4"></i>
+                  <span>CAS Offer Portal</span>
+                </a>
+              </div>
+            </div>
+
+            <a href="#about" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">About</a>
+            <a href="#programs" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Programs</a>
+            <a href="#trainers" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Faculty Trainers</a>
+            <a href="#testimonials" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Success Stories</a>
+            <a href="#applicant-dashboard" class="text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-1.5">
+              <i class="fa-solid fa-file-shield text-xs"></i>
+              <span>CAS Portal</span>
+            </a>
+            <a href="#contact" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Contact</a>
+          </nav>
+
+          <!-- Desktop Actions -->
+          <div class="hidden lg:flex items-center gap-4">
+            <button 
+              onclick="openModal('auth-modal')"
+              class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors cursor-pointer"
+            >
+              Sign In
+            </button>
+            <button 
+              onclick="openModal('consultation-modal')"
+              class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl shadow-lg shadow-indigo-600/30 transition-all border border-indigo-400/30 cursor-pointer"
+            >
+              Consultation
+            </button>
+          </div>
+
+          <!-- Mobile Hamburger Toggle -->
+          <button 
+            id="mobile-menu-btn"
+            class="lg:hidden p-2 text-slate-300 hover:text-white focus:outline-none cursor-pointer"
+            aria-label="Toggle Navigation Menu"
+          >
+            <i id="mobile-menu-icon" class="fa-solid fa-bars text-xl text-white"></i>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Mobile Navigation Drawer -->
+      <div id="mobile-drawer" class="lg:hidden bg-[#0e131f] border-b border-white/10 px-4 pt-3 pb-6 space-y-3 hidden">
+        <div>
+          <button 
+            id="mobile-submenu-btn"
+            class="w-full flex items-center justify-between py-2 text-sm font-medium text-slate-200 hover:text-white"
+          >
+            <span>Home</span>
+            <i id="mobile-submenu-icon" class="fa-solid fa-chevron-down text-xs transition-transform duration-200"></i>
+          </button>
+          <div id="mobile-submenu" class="pl-4 border-l border-white/10 space-y-2 mt-2 hidden">
+            <a href="#" onclick="closeMobileMenu()" class="block py-1 text-xs text-slate-300 hover:text-white">Home Classic</a>
+            <a href="#about" onclick="closeMobileMenu()" class="block py-1 text-xs text-slate-300 hover:text-white">About Global Path</a>
+            <a href="#applicant-dashboard" onclick="closeMobileMenu()" class="block py-1 text-xs text-slate-300 hover:text-white">CAS Offer Portal</a>
+          </div>
+        </div>
+
+        <a href="#about" onclick="closeMobileMenu()" class="block py-2 text-sm font-medium text-slate-300 hover:text-white">About</a>
+        <a href="#programs" onclick="closeMobileMenu()" class="block py-2 text-sm font-medium text-slate-300 hover:text-white">Programs</a>
+        <a href="#trainers" onclick="closeMobileMenu()" class="block py-2 text-sm font-medium text-slate-300 hover:text-white">Faculty Trainers</a>
+        <a href="#testimonials" onclick="closeMobileMenu()" class="block py-2 text-sm font-medium text-slate-300 hover:text-white">Success Stories</a>
+        <a href="#applicant-dashboard" onclick="closeMobileMenu()" class="block py-2 text-sm font-medium text-indigo-400 hover:text-indigo-300">CAS Portal</a>
+        <a href="#contact" onclick="closeMobileMenu()" class="block py-2 text-sm font-medium text-slate-300 hover:text-white">Contact</a>
+
+        <div class="pt-4 border-t border-white/10 flex flex-col gap-3">
+          <button 
+            onclick="closeMobileMenu(); openModal('auth-modal')"
+            class="w-full py-2.5 text-center text-sm font-medium text-slate-300 bg-white/5 rounded-xl hover:bg-white/10"
+          >
+            Sign In
+          </button>
+          <button 
+            onclick="closeMobileMenu(); openModal('consultation-modal')"
+            class="w-full py-2.5 text-center text-sm font-semibold text-white bg-indigo-600 rounded-xl hover:bg-indigo-500 shadow-lg shadow-indigo-600/30"
+          >
+            Book Free Consultation
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ==================== 2. HERO SECTION ==================== -->
+    <section class="relative min-h-screen flex items-center justify-center pt-28 pb-16 overflow-hidden" dir="ltr">
+      
+      <!-- Auditorium Background Image with soft blur -->
+      <div class="absolute inset-0 z-0">
+        <img 
+          src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?q=80&w=2560&auto=format&fit=crop" 
+          alt="Auditorium Background" 
+          class="w-full h-full object-cover object-center filter blur-[1.5px] scale-102"
+        />
+        <!-- Deep rich overlay matching original look -->
+        <div class="absolute inset-0 bg-[#0B0F19]/85"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-[#0B0F19]/90 via-[#0B0F19]/70 to-[#0B0F19]"></div>
+        <div class="absolute inset-0" style="background: radial-gradient(circle at 50% 20%, rgba(99, 102, 241, 0.18) 0%, rgba(11, 15, 25, 0.88) 65%, #0B0F19 100%);"></div>
+      </div>
+
+      <!-- Interactive Canvas Particle Field -->
+      <canvas id="hero-canvas" class="absolute inset-0 z-1 pointer-events-none w-full h-full"></canvas>
+
+      <!-- Hero Content -->
+      <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-6">
+        
+        <!-- Status Pill Badge with Beacon Pulse -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/80 border border-white/15 backdrop-blur-md text-xs font-semibold tracking-wide uppercase text-slate-200 mb-8 shadow-2xl">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 beacon-pulse"></span>
+          <span>Enrollment Open for Fall 2026</span>
+        </div>
+
+        <!-- Display Headline -->
+        <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-8 leading-[1.08]">
+          Master the Art of <br class="hidden sm:inline" />
+          <span class="gradient-text italic font-serif">Persuasion</span>
+        </h1>
+
+        <!-- Subheadline -->
+        <p class="text-base sm:text-xl md:text-2xl text-slate-200 max-w-3xl mx-auto mb-12 font-normal leading-relaxed">
+          Elite training in public speaking, competitive debate, and executive communication for the leaders of tomorrow.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+          <a 
+            href="#programs"
+            class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl shadow-xl shadow-indigo-600/30 transition-all border border-indigo-400/30 group cursor-pointer"
+          >
+            <span>Explore Programs</span>
+            <i class="fa-solid fa-arrow-right ml-2.5 text-sm group-hover:translate-x-1 transition-transform"></i>
+          </a>
+
+          <button 
+            onclick="openModal('video-modal')"
+            class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-slate-900/80 hover:bg-slate-800/80 rounded-xl backdrop-blur-md border border-white/20 hover:border-white/40 transition-all shadow-xl cursor-pointer"
+          >
+            <i class="fa-solid fa-play text-xs text-indigo-400 mr-2.5"></i>
+            <span>Watch Showcase</span>
+          </button>
+        </div>
+
+        <!-- Bouncing Scroll Down Indicator -->
+        <div class="mt-16 flex justify-center">
+          <a href="#stats-section" class="text-slate-400 hover:text-white transition-colors animate-bounce" aria-label="Scroll to stats">
+            <i class="fa-solid fa-chevron-down text-lg"></i>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== STATS COUNTER SECTION ==================== -->
+    <section id="stats-section" class="py-12 relative z-20 border-t border-b border-white/10 bg-[#0e131f]/90" dir="ltr">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          
+          <div class="p-6 rounded-2xl glass-stat-card">
+            <div class="text-3xl sm:text-5xl font-extrabold text-white mb-2 flex items-center justify-center">
+              <span id="stat-1">5,000</span><span>+</span>
+            </div>
+            <div class="text-xs sm:text-sm font-semibold uppercase tracking-wider text-indigo-400">
+              Alumni Worldwide
+            </div>
+          </div>
+
+          <div class="p-6 rounded-2xl glass-stat-card">
+            <div class="text-3xl sm:text-5xl font-extrabold text-white mb-2 flex items-center justify-center">
+              <span id="stat-2">50</span><span>+</span>
+            </div>
+            <div class="text-xs sm:text-sm font-semibold uppercase tracking-wider text-indigo-400">
+              Championship Titles
+            </div>
+          </div>
+
+          <div class="p-6 rounded-2xl glass-stat-card">
+            <div class="text-3xl sm:text-5xl font-extrabold text-white mb-2 flex items-center justify-center">
+              <span id="stat-3">25</span><span>+</span>
+            </div>
+            <div class="text-xs sm:text-sm font-semibold uppercase tracking-wider text-indigo-400">
+              Elite Coaches
+            </div>
+          </div>
+
+          <div class="p-6 rounded-2xl glass-stat-card">
+            <div class="text-3xl sm:text-5xl font-extrabold text-white mb-2 flex items-center justify-center">
+              <span id="stat-4">98</span><span>%</span>
+            </div>
+            <div class="text-xs sm:text-sm font-semibold uppercase tracking-wider text-indigo-400">
+              Satisfaction Rate
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ABOUT GLOBAL PATH EDUCATION SECTION ==================== -->
+    <section id="about" class="py-24 relative z-20 border-t border-white/10 bg-[#0B0F19] text-white" dir="ltr">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
+        
+        <!-- Section Pill Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-4">
+          <i class="fa-solid fa-landmark"></i>
+          <span>Academic Heritage & Global Recognition</span>
+        </div>
+
+        <!-- Main Headings with high contrast -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
+          <div class="lg:col-span-7 space-y-6">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+              About Global Path Education
+            </h2>
+            <h3 class="text-xl sm:text-2xl font-semibold text-indigo-400">
+              Architecting World-Class Public Speaking, Debate Excellence, and Academic Leadership
+            </h3>
+            <p class="text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
+              Global Path Education, in strategic synergy with VoxAcademy, pioneers the gold standard in speech rhetoric, international parliamentary debate, and collegiate admissions communication. We equip promising students, corporate visionaries, and competitive debaters with the poise, argument taxonomy, and acoustic resonance demanded at the highest global stages.
+            </p>
+            <p class="text-sm sm:text-base text-slate-400 leading-relaxed">
+              From the ancient halls of Oxford and Cambridge Union debating societies to the premier debate podiums in Geneva and Singapore, our alumni represent an unshakeable standard of clarity, cognitive agility, and ethical persuasion.
+            </p>
+
+            <div class="pt-2 flex flex-wrap items-center gap-4">
+              <button
+                onclick="openModal('story-modal')"
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-600/30 transition-all cursor-pointer border border-indigo-400/30"
+              >
+                <span>Read Full Academy Heritage</span>
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+              </button>
+              <button
+                onclick="openModal('consultation-modal')"
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-slate-200 bg-[#121826] hover:bg-[#161f30] border border-white/15 transition-all cursor-pointer shadow-md"
+              >
+                <span>Book Free Consultation</span>
+                <i class="fa-solid fa-calendar-check text-xs text-indigo-400"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5">
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-[#121826] p-2 sm:p-3">
+              <img
+                src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1200&auto=format&fit=crop"
+                alt="Global Path Education Seminar Auditorium"
+                class="w-full h-80 sm:h-96 object-cover rounded-2xl"
+              />
+              <div class="absolute inset-x-5 bottom-5 bg-[#0B0F19]/95 backdrop-blur-md p-4 rounded-xl border border-white/15 shadow-xl text-left">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-lg flex-shrink-0 shadow-md">
+                    <i class="fa-solid fa-award"></i>
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-bold text-white">Global Accreditation & Standards</h4>
+                    <p class="text-xs text-slate-300">Certified by the International Speech & Debate Federation</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Academic Pillars -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="p-8 rounded-2xl bg-[#121826] border border-white/10 shadow-lg hover:border-indigo-500/40 transition-all text-left">
+            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-xl mb-5 border border-indigo-500/30">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <h4 class="text-lg font-bold text-white mb-2">Cognitive Argument Architecture</h4>
+            <p class="text-sm text-slate-300 leading-relaxed font-normal">
+              We teach speakers to break down multi-layered geopolitical, philosophical, and market issues with structured deductive clarity that holds under adversarial interrogation.
+            </p>
+          </div>
+
+          <div class="p-8 rounded-2xl bg-[#121826] border border-white/10 shadow-lg hover:border-violet-500/40 transition-all text-left">
+            <div class="w-12 h-12 rounded-xl bg-violet-500/10 text-violet-400 flex items-center justify-center text-xl mb-5 border border-violet-500/30">
+              <i class="fa-solid fa-microphone-lines"></i>
+            </div>
+            <h4 class="text-lg font-bold text-white mb-2">Acoustic Command & Cadence</h4>
+            <p class="text-sm text-slate-300 leading-relaxed font-normal">
+              Master diaphragmatic pacing, pitch modulation, and strategic pauses to captivate auditoriums without vocal fatigue, commanding immediate respect and audience attention.
+            </p>
+          </div>
+
+          <div class="p-8 rounded-2xl bg-[#121826] border border-white/10 shadow-lg hover:border-blue-500/40 transition-all text-left">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl mb-5 border border-blue-500/30">
+              <i class="fa-solid fa-compass"></i>
+            </div>
+            <h4 class="text-lg font-bold text-white mb-2">Ivy League & Career Gateways</h4>
+            <p class="text-sm text-slate-300 leading-relaxed font-normal">
+              Our scholars consistently secure admissions into top universities across the UK, US, and Europe, armed with official CAS clearance and elite interview prowess.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== SIGNATURE PROGRAMS SECTION ==================== -->
+    <section id="programs" class="py-24 relative z-20 border-t border-white/10 bg-[#0e131f]" dir="ltr">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
+        
+        <!-- Section Header & Carousel Buttons -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold tracking-wide uppercase mb-3">
+              <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+              Curriculum
+            </div>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
+              Our Signature Programs
+            </h2>
+          </div>
+          
+          <div class="flex items-center gap-3">
+            <button 
+              onclick="scrollPrograms('left')"
+              class="w-12 h-12 rounded-full border border-white/20 bg-[#121826] text-white flex items-center justify-center hover:bg-indigo-600 hover:border-indigo-500 transition-all shadow-lg cursor-pointer"
+              aria-label="Scroll left"
+            >
+              <i class="fa-solid fa-chevron-left text-sm"></i>
+            </button>
+            <button 
+              onclick="scrollPrograms('right')"
+              class="w-12 h-12 rounded-full border border-white/20 bg-[#121826] text-white flex items-center justify-center hover:bg-indigo-600 hover:border-indigo-500 transition-all shadow-lg cursor-pointer"
+              aria-label="Scroll right"
+            >
+              <i class="fa-solid fa-chevron-right text-sm"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Horizontal Scrollable Program Cards -->
+        <div id="programs-carousel" class="flex gap-8 overflow-x-auto no-scrollbar pb-6 snap-x snap-mandatory">
+          
+          <!-- Program 1 -->
+          <div class="min-w-[320px] sm:min-w-[360px] md:min-w-[380px] bg-[#121826] rounded-2xl overflow-hidden border border-white/10 flex flex-col justify-between group snap-start shadow-xl hover:border-indigo-500/50 transition-all">
+            <div>
+              <div class="relative h-60 overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1200&auto=format&fit=crop" 
+                  alt="Executive Presence" 
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-[#121826] via-transparent to-transparent"></div>
+                <div class="absolute top-4 right-4">
+                  <span class="px-3 py-1 rounded-full bg-indigo-950/80 text-indigo-300 text-xs font-semibold border border-indigo-500/30 backdrop-blur-md">
+                    C-Suite & Founders
+                  </span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-white mb-2">Executive Presence</h3>
+                <p class="text-slate-300 text-sm leading-relaxed mb-4 font-normal">
+                  Master commanding auditoriums, pitching to institutional investors, and inspiring multinational teams.
+                </p>
+                <div class="text-xs text-indigo-400 font-semibold mb-4">
+                  8 Weeks • Intensive Cohort
+                </div>
+              </div>
+            </div>
+            <div class="p-6 pt-0">
+              <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                <button 
+                  onclick="openProgramModal('prog-1')"
+                  class="text-xs font-semibold text-indigo-400 hover:text-indigo-300 cursor-pointer"
+                >
+                  View Syllabus
+                </button>
+                <button 
+                  onclick="openProgramModal('prog-1')"
+                  class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-colors cursor-pointer"
+                >
+                  <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Program 2 -->
+          <div class="min-w-[320px] sm:min-w-[360px] md:min-w-[380px] bg-[#121826] rounded-2xl overflow-hidden border border-white/10 flex flex-col justify-between group snap-start shadow-xl hover:border-indigo-500/50 transition-all">
+            <div>
+              <div class="relative h-60 overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1200&auto=format&fit=crop" 
+                  alt="Competitive Debate" 
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-[#121826] via-transparent to-transparent"></div>
+                <div class="absolute top-4 right-4">
+                  <span class="px-3 py-1 rounded-full bg-indigo-950/80 text-indigo-300 text-xs font-semibold border border-indigo-500/30 backdrop-blur-md">
+                    Championship Track
+                  </span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-white mb-2">Competitive Debate</h3>
+                <p class="text-slate-300 text-sm leading-relaxed mb-4 font-normal">
+                  Rigorous debate strategy, argumentation deconstruction, and refutation mechanics under WUDC rules.
+                </p>
+                <div class="text-xs text-indigo-400 font-semibold mb-4">
+                  12 Weeks • Tournament Preparation
+                </div>
+              </div>
+            </div>
+            <div class="p-6 pt-0">
+              <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                <button 
+                  onclick="openProgramModal('prog-2')"
+                  class="text-xs font-semibold text-indigo-400 hover:text-indigo-300 cursor-pointer"
+                >
+                  View Syllabus
+                </button>
+                <button 
+                  onclick="openProgramModal('prog-2')"
+                  class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-colors cursor-pointer"
+                >
+                  <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Program 3 -->
+          <div class="min-w-[320px] sm:min-w-[360px] md:min-w-[380px] bg-[#121826] rounded-2xl overflow-hidden border border-white/10 flex flex-col justify-between group snap-start shadow-xl hover:border-indigo-500/50 transition-all">
+            <div>
+              <div class="relative h-60 overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=1200&auto=format&fit=crop" 
+                  alt="Mastering the Stage" 
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-[#121826] via-transparent to-transparent"></div>
+                <div class="absolute top-4 right-4">
+                  <span class="px-3 py-1 rounded-full bg-indigo-950/80 text-indigo-300 text-xs font-semibold border border-indigo-500/30 backdrop-blur-md">
+                    TEDx & Keynote Coaching
+                  </span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-white mb-2">Mastering the Stage</h3>
+                <p class="text-slate-300 text-sm leading-relaxed mb-4 font-normal">
+                  Turn stage fright into magnetic stage presence. Learn the exact frameworks behind viral TEDx talks.
+                </p>
+                <div class="text-xs text-indigo-400 font-semibold mb-4">
+                  6 Weeks • Performance Focused
+                </div>
+              </div>
+            </div>
+            <div class="p-6 pt-0">
+              <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                <button 
+                  onclick="openProgramModal('prog-3')"
+                  class="text-xs font-semibold text-indigo-400 hover:text-indigo-300 cursor-pointer"
+                >
+                  View Syllabus
+                </button>
+                <button 
+                  onclick="openProgramModal('prog-3')"
+                  class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-colors cursor-pointer"
+                >
+                  <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Program 4 -->
+          <div class="min-w-[320px] sm:min-w-[360px] md:min-w-[380px] bg-[#121826] rounded-2xl overflow-hidden border border-white/10 flex flex-col justify-between group snap-start shadow-xl hover:border-indigo-500/50 transition-all">
+            <div>
+              <div class="relative h-60 overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?q=80&w=1200&auto=format&fit=crop" 
+                  alt="Interview Mastery" 
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-[#121826] via-transparent to-transparent"></div>
+                <div class="absolute top-4 right-4">
+                  <span class="px-3 py-1 rounded-full bg-indigo-950/80 text-indigo-300 text-xs font-semibold border border-indigo-500/30 backdrop-blur-md">
+                    Fast Track
+                  </span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-white mb-2">Interview Mastery</h3>
+                <p class="text-slate-300 text-sm leading-relaxed mb-4 font-normal">
+                  Achieve peak performance in high-stakes university and corporate interviews.
+                </p>
+                <div class="text-xs text-indigo-400 font-semibold mb-4">
+                  4 Weeks • Accelerated Fast-Track
+                </div>
+              </div>
+            </div>
+            <div class="p-6 pt-0">
+              <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                <button 
+                  onclick="openProgramModal('prog-4')"
+                  class="text-xs font-semibold text-indigo-400 hover:text-indigo-300 cursor-pointer"
+                >
+                  View Syllabus
+                </button>
+                <button 
+                  onclick="openProgramModal('prog-4')"
+                  class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-colors cursor-pointer"
+                >
+                  <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== VIDEO SHOWCASE SECTION ==================== -->
+    <section id="video-showcase" class="py-24 relative z-20 overflow-hidden border-t border-white/10 bg-[#0B0F19]" dir="ltr">
+      
+      <!-- Banner Background Image -->
+      <div class="absolute inset-0 z-0">
+        <img 
+          src="https://images.unsplash.com/photo-1561489413-985b06da5bee?q=80&w=2560&auto=format&fit=crop" 
+          alt="Auditorium showcase" 
+          class="w-full h-full object-cover object-center opacity-20" 
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-[#0B0F19] via-[#0B0F19]/90 to-[#0B0F19]"></div>
+      </div>
+
+      <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold tracking-wide uppercase mb-4">
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+          Inside VoxAcademy
+        </div>
+
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-12">
+          Experience the Vox Difference
+        </h2>
+
+        <!-- Video Player Mockup Container -->
+        <div 
+          onclick="openModal('video-modal')"
+          class="relative mx-auto max-w-4xl rounded-2xl overflow-hidden border border-white/15 shadow-2xl group cursor-pointer"
+        >
+          <!-- Thumbnail -->
+          <img 
+            src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1600&auto=format&fit=crop" 
+            alt="Video showcase preview" 
+            class="w-full aspect-video object-cover group-hover:scale-102 transition-transform duration-700 brightness-90 group-hover:brightness-100" 
+          />
+
+          <!-- Centered Glowing Play Button -->
+          <div class="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/25 transition-colors">
+            <div class="relative flex items-center justify-center">
+              <div class="absolute w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-indigo-500/30 animate-ping opacity-60"></div>
+              <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-indigo-600 group-hover:bg-indigo-500 text-white flex items-center justify-center shadow-2xl shadow-indigo-500/50 border border-indigo-300/40 group-hover:scale-110 transition-transform duration-300">
+                <i class="fa-solid fa-play text-2xl sm:text-3xl ml-1 text-white"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Duration & Title Pill -->
+          <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 flex items-center gap-3">
+            <span class="px-3 py-1 rounded-md bg-black/80 backdrop-blur-md text-white text-xs font-medium border border-white/10">
+              <i class="fa-solid fa-circle text-[8px] text-red-500 mr-1.5 animate-pulse"></i> 2:45 Mini-Doc
+            </span>
+            <span class="text-xs sm:text-sm font-medium text-slate-200 drop-shadow hidden sm:inline-block">
+              The Vox Method: From Panic to Persuasion
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== WORLD-CLASS TRAINERS SECTION ==================== -->
+    <section id="trainers" class="py-24 relative z-20 border-t border-white/10 bg-[#0B0F19]" dir="ltr">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold tracking-wide uppercase mb-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+            Faculty
+          </div>
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
+            World-Class Trainers
+          </h2>
+          <p class="text-base sm:text-lg text-slate-300 font-normal leading-relaxed">
+            Learn directly from individuals who have conquered the biggest stages globally.
+          </p>
+        </div>
+
+        <!-- Trainer Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Trainer 1 -->
+          <div class="bg-[#121826] border border-white/10 rounded-2xl overflow-hidden flex flex-col group text-left shadow-xl hover:border-indigo-500/40 transition-all">
+            <div class="relative h-80 overflow-hidden bg-slate-900">
+              <img 
+                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop" 
+                alt="Elena Rostova" 
+                class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" 
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#121826] via-transparent to-transparent"></div>
+              
+              <div class="absolute top-4 right-4">
+                <span class="px-3 py-1 rounded-full backdrop-blur-md text-xs font-semibold border bg-indigo-950/80 text-indigo-300 border-indigo-500/30">
+                  WUDC Best Speaker 2022
+                </span>
+              </div>
+
+              <div class="absolute bottom-4 left-4 right-4">
+                <h3 class="text-xl font-bold text-white mb-0.5">Elena Rostova</h3>
+                <p class="text-indigo-400 font-semibold text-xs uppercase tracking-wider">Head of Debate</p>
+              </div>
+            </div>
+
+            <div class="p-6 flex-1 flex flex-col justify-between space-y-4 bg-[#121826]">
+              <p class="text-slate-300 text-sm leading-relaxed font-normal">
+                Oxford graduate, 3x European Champion, and consultant for Fortune 500 executives on persuasive communication.
+              </p>
+              <div class="pt-3 border-t border-white/10 flex items-center justify-between">
+                <span class="text-xs text-slate-400">12+ Years Coaching Experience</span>
+                <button 
+                  onclick="openTrainerModal('trainer-1')"
+                  class="text-indigo-400 hover:text-indigo-300 font-semibold text-xs inline-flex items-center gap-1.5 focus:outline-none cursor-pointer"
+                >
+                  <span>View Profile</span>
+                  <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trainer 2 -->
+          <div class="bg-[#121826] border border-white/10 rounded-2xl overflow-hidden flex flex-col group text-left shadow-xl hover:border-indigo-500/40 transition-all">
+            <div class="relative h-80 overflow-hidden bg-slate-900">
+              <img 
+                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop" 
+                alt="Marcus Sterling" 
+                class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" 
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#121826] via-transparent to-transparent"></div>
+              
+              <div class="absolute top-4 right-4">
+                <span class="px-3 py-1 rounded-full backdrop-blur-md text-xs font-semibold border bg-amber-950/80 text-amber-300 border-amber-500/30">
+                  TEDx Keynote Coach
+                </span>
+              </div>
+
+              <div class="absolute bottom-4 left-4 right-4">
+                <h3 class="text-xl font-bold text-white mb-0.5">Marcus Sterling</h3>
+                <p class="text-indigo-400 font-semibold text-xs uppercase tracking-wider">Director of Public Speaking</p>
+              </div>
+            </div>
+
+            <div class="p-6 flex-1 flex flex-col justify-between space-y-4 bg-[#121826]">
+              <p class="text-slate-300 text-sm leading-relaxed font-normal">
+                Has coached over 50 TEDx speakers. Specializes in storytelling, emotional connection, and stage presence.
+              </p>
+              <div class="pt-3 border-t border-white/10 flex items-center justify-between">
+                <span class="text-xs text-slate-400">50+ TEDx Talks Curated & Coached</span>
+                <button 
+                  onclick="openTrainerModal('trainer-2')"
+                  class="text-indigo-400 hover:text-indigo-300 font-semibold text-xs inline-flex items-center gap-1.5 focus:outline-none cursor-pointer"
+                >
+                  <span>View Profile</span>
+                  <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trainer 3 -->
+          <div class="bg-[#121826] border border-white/10 rounded-2xl overflow-hidden flex flex-col group text-left shadow-xl hover:border-indigo-500/40 transition-all">
+            <div class="relative h-80 overflow-hidden bg-slate-900">
+              <img 
+                src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=800&auto=format&fit=crop" 
+                alt="Dr. Amara Singh" 
+                class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" 
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#121826] via-transparent to-transparent"></div>
+              
+              <div class="absolute top-4 right-4">
+                <span class="px-3 py-1 rounded-full backdrop-blur-md text-xs font-semibold border bg-violet-950/80 text-violet-300 border-violet-500/30">
+                  Executive Communication
+                </span>
+              </div>
+
+              <div class="absolute bottom-4 left-4 right-4">
+                <h3 class="text-xl font-bold text-white mb-0.5">Dr. Amara Singh</h3>
+                <p class="text-indigo-400 font-semibold text-xs uppercase tracking-wider">Executive Coach</p>
+              </div>
+            </div>
+
+            <div class="p-6 flex-1 flex flex-col justify-between space-y-4 bg-[#121826]">
+              <p class="text-slate-300 text-sm leading-relaxed font-normal">
+                Ph.D. in Communications. Former political speechwriter turned corporate communication strategist.
+              </p>
+              <div class="pt-3 border-t border-white/10 flex items-center justify-between">
+                <span class="text-xs text-slate-400">Advisor to Global CEOs & Cabinet Ministers</span>
+                <button 
+                  onclick="openTrainerModal('trainer-3')"
+                  class="text-indigo-400 hover:text-indigo-300 font-semibold text-xs inline-flex items-center gap-1.5 focus:outline-none cursor-pointer"
+                >
+                  <span>View Profile</span>
+                  <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom Button -->
+        <div class="mt-14 text-center">
+          <button 
+            onclick="showToast('VoxAcademy features 32 active world-champion faculty members worldwide.')"
+            class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-semibold text-white bg-[#121826] hover:bg-[#161f30] rounded-xl border border-white/15 hover:border-white/30 transition-all shadow-md cursor-pointer"
+          >
+            See All Trainers
+            <i class="fa-solid fa-arrow-right ml-2.5 text-xs"></i>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TESTIMONIALS / SUCCESS STORIES SECTION ==================== -->
+    <section id="testimonials" class="py-24 relative z-20 border-t border-white/10 bg-[#0B0F19]" dir="ltr">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold tracking-wide uppercase mb-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+            Testimonials
+          </div>
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
+            Success Stories
+          </h2>
+          <p class="text-base sm:text-lg text-slate-300 font-normal leading-relaxed">
+            Hear from graduates who went from stage hesitation to international acclaim.
+          </p>
+        </div>
+
+        <!-- Testimonials Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-14">
+          
+          <!-- Story 1 -->
+          <div class="bg-[#121826] border border-white/10 p-8 rounded-2xl flex flex-col justify-between space-y-6 text-left shadow-xl hover:border-indigo-500/30 transition-all">
+            <div>
+              <div class="flex text-amber-400 gap-1 mb-4 text-sm">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <p class="text-slate-200 text-sm leading-relaxed italic">
+                "Before Vox, pitch meetings filled me with anxiety. Within 4 weeks of the Executive Presence track, our team closed a $14M Series A round. The vocal projection drills were transformative."
+              </p>
+            </div>
+
+            <div class="flex items-center gap-4 pt-4 border-t border-white/10">
+              <img 
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop" 
+                alt="Sophia Liang" 
+                class="w-12 h-12 rounded-full object-cover border border-indigo-400/30" 
+              />
+              <div>
+                <h4 class="font-bold text-white text-sm">Sophia Liang</h4>
+                <p class="text-xs text-slate-400">Founder & CEO, Synapse Health</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Story 2 -->
+          <div class="bg-[#121826] border border-indigo-500/30 p-8 rounded-2xl flex flex-col justify-between space-y-6 text-left shadow-xl hover:border-indigo-400/50 transition-all">
+            <div>
+              <div class="flex text-amber-400 gap-1 mb-4 text-sm">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <p class="text-slate-200 text-sm leading-relaxed italic">
+                "The debate coaches at Vox didn't just teach us argumentation; they transformed how we perceive counter-arguments. Our university team reached the grand finals at WUDC."
+              </p>
+            </div>
+
+            <div class="flex items-center gap-4 pt-4 border-t border-white/10">
+              <img 
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop" 
+                alt="Tariq Al-Mansoor" 
+                class="w-12 h-12 rounded-full object-cover border border-indigo-400/30" 
+              />
+              <div>
+                <h4 class="font-bold text-white text-sm">Tariq Al-Mansoor</h4>
+                <p class="text-xs text-slate-400">President, Cambridge Union Debating Society</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Story 3 -->
+          <div class="bg-[#121826] border border-white/10 p-8 rounded-2xl flex flex-col justify-between space-y-6 text-left shadow-xl hover:border-indigo-500/30 transition-all">
+            <div>
+              <div class="flex text-amber-400 gap-1 mb-4 text-sm">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <p class="text-slate-200 text-sm leading-relaxed italic">
+                "My TEDx talk reached 1.2M views on YouTube. Marcus broke down my pacing, breathing, and slide transitions with mathematical precision. Worth every second."
+              </p>
+            </div>
+
+            <div class="flex items-center gap-4 pt-4 border-t border-white/10">
+              <img 
+                src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=300&auto=format&fit=crop" 
+                alt="Claire Dumont" 
+                class="w-12 h-12 rounded-full object-cover border border-indigo-400/30" 
+              />
+              <div>
+                <h4 class="font-bold text-white text-sm">Claire Dumont</h4>
+                <p class="text-xs text-slate-400">Climate Economist & TEDx Speaker</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="text-center">
+          <button 
+            onclick="showToast('Over 150+ verified alumni video case studies are available in the student portal.')"
+            class="inline-flex items-center justify-center text-sm font-semibold text-indigo-400 hover:text-indigo-300 group cursor-pointer"
+          >
+            <span>Read more success stories</span>
+            <i class="fa-solid fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition-transform"></i>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== APPLICANT DASHBOARD — CAS OFFER PDF PORTAL ==================== -->
+    <section id="applicant-dashboard" class="py-20 relative z-20 border-t border-white/10 bg-[#0B0F19]" dir="ltr">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 border-b border-white/10 pb-6">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-3">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <span>Admissions & Immigration Compliance</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+              Applicant Dashboard & CAS Portal
+            </h2>
+            <p class="text-sm text-slate-300 mt-2 max-w-2xl font-normal">
+              Access and manage applicant admission offers, university matriculation records, and authorized Confirmation of Acceptance for Studies (CAS) documentation.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="relative">
+              <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+              <input
+                id="applicant-search"
+                type="text"
+                placeholder="Search candidate, ID, CAS..."
+                class="pl-9 pr-4 py-2 text-xs rounded-xl bg-[#121826] border border-white/15 text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 w-56 sm:w-64"
+              />
+            </div>
+            <select
+              id="applicant-status-filter"
+              class="py-2 px-3 text-xs rounded-xl bg-[#121826] border border-white/15 text-slate-200 focus:outline-none focus:border-indigo-500"
+            >
+              <option value="All">All Statuses</option>
+              <option value="Issued">CAS Issued</option>
+              <option value="Pending Verification">Pending Verification</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Dashboard Table / Responsive Cards -->
+        <div class="bg-[#121826] rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
+          
+          <!-- Table for lg+ screens -->
+          <div class="hidden lg:block overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-white/10 bg-[#0e131f] text-[11px] uppercase tracking-wider text-slate-400 font-semibold">
+                  <th class="py-3.5 px-6">Applicant Details</th>
+                  <th class="py-3.5 px-6">Program & Academy</th>
+                  <th class="py-3.5 px-6">CAS Reference Number</th>
+                  <th class="py-3.5 px-6">Submission Date</th>
+                  <th class="py-3.5 px-6">CAS Status</th>
+                  <th class="py-3.5 px-6 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="applicant-tbody" class="divide-y divide-white/5 text-sm">
+                <!-- Dynamically injected via script.js -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Cards for Mobile & Tablet screens -->
+          <div id="applicant-mobile-list" class="block lg:hidden divide-y divide-white/5">
+            <!-- Dynamically injected via script.js -->
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== GET IN TOUCH WITH OTHER ADVISORS & INQUIRY ==================== -->
+    <section id="contact" class="py-24 relative z-20 border-t border-white/10 bg-[#0e131f] text-white" dir="ltr">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
+        
+        <!-- Section Pill Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-4">
+          <i class="fa-solid fa-headset"></i>
+          <span>Global Path Academic Advisory</span>
+        </div>
+
+        <!-- Section Main Heading with high contrast in bright & dark modes -->
+        <div class="max-w-3xl mb-16">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight uppercase">
+            GET IN TOUCH WITH OTHER ADVISORS
+          </h2>
+          <p class="text-base sm:text-lg text-slate-300 mt-4 leading-relaxed font-normal">
+            Whether you require tailored admissions diagnostic counseling, CAS immigration advice, or 1-on-1 championship tournament coaching, our senior global advisors are on call.
+          </p>
+        </div>
+
+        <!-- 3 Advisor Profiles Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+          
+          <!-- Advisor 1 -->
+          <div class="p-6 rounded-2xl bg-[#121826] border border-white/10 shadow-xl flex flex-col justify-between hover:border-indigo-500/40 transition-all text-left">
+            <div>
+              <div class="flex items-center gap-4 mb-4">
+                <img
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop"
+                  alt="Dr. Julian Montgomery"
+                  class="w-16 h-16 rounded-xl object-cover border border-white/20 shadow-md"
+                />
+                <div>
+                  <h3 class="text-lg font-bold text-white">Dr. Julian Montgomery</h3>
+                  <p class="text-xs text-indigo-400 font-medium">Senior Academic Admissions Director</p>
+                  <p class="text-[11px] text-slate-400 flex items-center gap-1 mt-0.5">
+                    <i class="fa-solid fa-location-dot text-[10px]"></i>
+                    <span>Oxford & London Campus</span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="space-y-2 pt-2 border-t border-white/10 text-xs text-slate-300">
+                <p><span class="text-slate-400">Specialty:</span> Oxbridge & Russell Group Admissions Rhetoric</p>
+                <p class="flex items-center gap-2">
+                  <i class="fa-solid fa-envelope text-indigo-400"></i>
+                  <a href="mailto:j.montgomery@voxacademy.edu" class="hover:underline text-slate-200">j.montgomery@voxacademy.edu</a>
+                </p>
+                <p class="flex items-center gap-2">
+                  <i class="fa-solid fa-phone text-indigo-400"></i>
+                  <a href="tel:+441865270142" class="font-mono hover:underline text-slate-200">+44 (0) 1865 270142</a>
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-4 mt-4 border-t border-white/10 flex items-center justify-between">
+              <span class="text-[11px] text-emerald-400 font-semibold flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                Available for Fall 2026 Cohort
+              </span>
+              <button
+                onclick="openModal('consultation-modal')"
+                class="px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition-colors shadow-sm cursor-pointer"
+              >
+                Schedule Call
+              </button>
+            </div>
+          </div>
+
+          <!-- Advisor 2 -->
+          <div class="p-6 rounded-2xl bg-[#121826] border border-white/10 shadow-xl flex flex-col justify-between hover:border-indigo-500/40 transition-all text-left">
+            <div>
+              <div class="flex items-center gap-4 mb-4">
+                <img
+                  src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&auto=format&fit=crop"
+                  alt="Eleanor Vance, M.A."
+                  class="w-16 h-16 rounded-xl object-cover border border-white/20 shadow-md"
+                />
+                <div>
+                  <h3 class="text-lg font-bold text-white">Eleanor Vance, M.A.</h3>
+                  <p class="text-xs text-indigo-400 font-medium">Chief Forensic Debate Strategist</p>
+                  <p class="text-[11px] text-slate-400 flex items-center gap-1 mt-0.5">
+                    <i class="fa-solid fa-location-dot text-[10px]"></i>
+                    <span>Geneva & London Bureau</span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="space-y-2 pt-2 border-t border-white/10 text-xs text-slate-300">
+                <p><span class="text-slate-400">Specialty:</span> WUDC & British Parliamentary Circuit Training</p>
+                <p class="flex items-center gap-2">
+                  <i class="fa-solid fa-envelope text-indigo-400"></i>
+                  <a href="mailto:e.vance@voxacademy.edu" class="hover:underline text-slate-200">e.vance@voxacademy.edu</a>
+                </p>
+                <p class="flex items-center gap-2">
+                  <i class="fa-solid fa-phone text-indigo-400"></i>
+                  <a href="tel:+41227912111" class="font-mono hover:underline text-slate-200">+41 22 791 2111</a>
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-4 mt-4 border-t border-white/10 flex items-center justify-between">
+              <span class="text-[11px] text-emerald-400 font-semibold flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                Accepting 1-on-1 Mentees
+              </span>
+              <button
+                onclick="openModal('consultation-modal')"
+                class="px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition-colors shadow-sm cursor-pointer"
+              >
+                Schedule Call
+              </button>
+            </div>
+          </div>
+
+          <!-- Advisor 3 -->
+          <div class="p-6 rounded-2xl bg-[#121826] border border-white/10 shadow-xl flex flex-col justify-between hover:border-indigo-500/40 transition-all text-left">
+            <div>
+              <div class="flex items-center gap-4 mb-4">
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop"
+                  alt="David K. O’Connor"
+                  class="w-16 h-16 rounded-xl object-cover border border-white/20 shadow-md"
+                />
+                <div>
+                  <h3 class="text-lg font-bold text-white">David K. O’Connor</h3>
+                  <p class="text-xs text-indigo-400 font-medium">Executive Speechwriter & C-Suite Counsel</p>
+                  <p class="text-[11px] text-slate-400 flex items-center gap-1 mt-0.5">
+                    <i class="fa-solid fa-location-dot text-[10px]"></i>
+                    <span>New York & Boston</span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="space-y-2 pt-2 border-t border-white/10 text-xs text-slate-300">
+                <p><span class="text-slate-400">Specialty:</span> Investor Roadshows, Keynotes & Boardroom Persuasion</p>
+                <p class="flex items-center gap-2">
+                  <i class="fa-solid fa-envelope text-indigo-400"></i>
+                  <a href="mailto:d.oconnor@voxacademy.edu" class="hover:underline text-slate-200">d.oconnor@voxacademy.edu</a>
+                </p>
+                <p class="flex items-center gap-2">
+                  <i class="fa-solid fa-phone text-indigo-400"></i>
+                  <a href="tel:+12125550198" class="font-mono hover:underline text-slate-200">+1 (212) 555-0198</a>
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-4 mt-4 border-t border-white/10 flex items-center justify-between">
+              <span class="text-[11px] text-emerald-400 font-semibold flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                Consulting Slots Open
+              </span>
+              <button
+                onclick="openModal('consultation-modal')"
+                class="px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition-colors shadow-sm cursor-pointer"
+              >
+                Schedule Call
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Direct Inquiry Form with Strict Phone Number Validation -->
+        <div class="max-w-3xl mx-auto p-8 sm:p-10 rounded-3xl bg-[#121826] border border-white/10 shadow-2xl text-left">
+          <h3 class="text-2xl font-bold text-white mb-2">Send Us an Inquiry</h3>
+          <p class="text-sm text-slate-300 mb-8 font-normal">
+            Submit your profile and objectives. Our admissions secretariat will review your inquiry within 24 business hours.
+          </p>
+
+          <form id="inquiry-form" class="space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Lady Sarah Jenkins"
+                  class="w-full px-4 py-3 rounded-xl bg-[#0e131f] border border-white/15 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+                />
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                  Academic / Corporate Email *
+                </label>
+                <input
+                  type="email"
+                  required
+                  placeholder="scholar@university.ac.uk"
+                  class="w-full px-4 py-3 rounded-xl bg-[#0e131f] border border-white/15 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+                />
+              </div>
+            </div>
+
+            <!-- Phone Number Input with Strict Real-Time Validation -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                  Contact Phone Number *
+                </label>
+                <span class="text-[11px] text-slate-400 font-normal">Numbers only (7–15 digits)</span>
+              </div>
+              <input
+                id="inquiry-phone"
+                type="tel"
+                required
+                placeholder="+44 20 7946 0991"
+                class="w-full px-4 py-3 rounded-xl bg-[#0e131f] border border-white/15 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+              />
+              <p id="inquiry-phone-error" class="text-xs text-rose-400 mt-1.5 flex items-center gap-1.5 font-medium hidden">
+                <!-- Dynamically populated -->
+              </p>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                Program of Interest
+              </label>
+              <select
+                class="w-full px-4 py-3 rounded-xl bg-[#0e131f] border border-white/15 text-white text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+              >
+                <option value="Executive Presence">Executive Presence (C-Suite & Founders)</option>
+                <option value="Competitive Debate">Competitive Debate (WUDC Championship Track)</option>
+                <option value="Mastering the Stage">Mastering the Stage (TEDx Keynotes)</option>
+                <option value="Interview Mastery">Interview Mastery (Oxbridge & Top MBA)</option>
+                <option value="CAS Immigration Guidance">CAS University Clearance & Immigration</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                Academic / Professional Objectives
+              </label>
+              <textarea
+                rows="4"
+                placeholder="Detail your background, upcoming speeches, or admissions target universities..."
+                class="w-full px-4 py-3 rounded-xl bg-[#0e131f] border border-white/15 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full py-4 rounded-xl font-bold text-sm text-white bg-indigo-600 hover:bg-indigo-500 shadow-xl shadow-indigo-600/30 transition-all border border-indigo-400/30 flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <span>Transmit Academic Inquiry</span>
+              <i class="fa-solid fa-paper-plane text-xs"></i>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== CALL TO ACTION (CTA) SECTION ==================== -->
+    <section class="py-24 relative z-20 overflow-hidden border-t border-white/10 bg-[#0B0F19]" dir="ltr">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="relative rounded-3xl overflow-hidden border border-white/15 bg-gradient-to-br from-indigo-950/60 via-[#121826] to-[#0e131f] p-8 sm:p-14 lg:p-16 text-center shadow-2xl">
+          
+          <!-- Ambient glowing radial lights -->
+          <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute bottom-0 right-10 w-72 h-72 bg-violet-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="relative z-10 max-w-2xl mx-auto">
+            <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-5">
+              Ready to find your voice?
+            </h2>
+            <p class="text-base sm:text-lg text-slate-200 mb-10 leading-relaxed font-normal">
+              Join thousands of leaders who have transformed their communication skills with VoxAcademy and Global Path Education.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <button 
+                onclick="openModal('consultation-modal')"
+                class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-bold text-slate-900 bg-white hover:bg-slate-100 rounded-xl shadow-xl transition-all cursor-pointer"
+              >
+                Start Your Journey
+                <i class="fa-solid fa-arrow-right ml-2.5 text-sm text-slate-900"></i>
+              </button>
+              <button 
+                onclick="openModal('consultation-modal')"
+                class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-4 text-base font-semibold text-white bg-white/10 hover:bg-white/15 rounded-xl backdrop-blur-md border border-white/15 transition-all cursor-pointer shadow-lg"
+              >
+                Book Free Consultation
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="border-t border-white/10 bg-[#070b12] text-white relative z-20 py-16" dir="ltr">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-12 mb-12">
+          
+          <!-- Brand & Mission -->
+          <div class="md:col-span-4 space-y-5">
+            <a href="#" class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-700 flex items-center justify-center font-bold text-white shadow-md border border-white/20">
+                <span class="text-xl">V</span>
+              </div>
+              <span class="text-2xl font-bold tracking-tight text-white">
+                Vox<span class="text-indigo-400 font-medium ml-0.5">Academy</span>
+              </span>
+            </a>
+            
+            <p class="text-slate-300 text-sm leading-relaxed max-w-sm font-normal">
+              Global Path Education & VoxAcademy: Transforming articulate minds into world debate champions, TEDx keynoters, and high-impact boardroom leaders.
+            </p>
+
+            <div class="flex items-center gap-3 pt-2">
+              <a href="https://twitter.com" target="_blank" rel="noreferrer" class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:border-indigo-500 transition-colors shadow-sm" aria-label="Twitter">
+                <i class="fa-brands fa-x-twitter text-sm"></i>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noreferrer" class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:border-indigo-500 transition-colors shadow-sm" aria-label="LinkedIn">
+                <i class="fa-brands fa-linkedin-in text-sm"></i>
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noreferrer" class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:border-indigo-500 transition-colors shadow-sm" aria-label="Instagram">
+                <i class="fa-brands fa-instagram text-sm"></i>
+              </a>
+              <a href="https://youtube.com" target="_blank" rel="noreferrer" class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:border-indigo-500 transition-colors shadow-sm" aria-label="YouTube">
+                <i class="fa-brands fa-youtube text-sm"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Quick Academic Links -->
+          <div class="md:col-span-2 space-y-4">
+            <h4 class="text-xs uppercase tracking-wider text-white font-bold">Curriculum</h4>
+            <ul class="space-y-2.5 text-sm text-slate-300">
+              <li><a href="#programs" class="hover:text-white transition-colors">Executive Presence</a></li>
+              <li><a href="#programs" class="hover:text-white transition-colors">Competitive Debate</a></li>
+              <li><a href="#programs" class="hover:text-white transition-colors">TEDx Keynote Track</a></li>
+              <li><a href="#programs" class="hover:text-white transition-colors">Interview Mastery</a></li>
+              <li><a href="#trainers" class="hover:text-white transition-colors">Faculty Directory</a></li>
+            </ul>
+          </div>
+
+          <!-- CAS & Admissions -->
+          <div class="md:col-span-3 space-y-4">
+            <h4 class="text-xs uppercase tracking-wider text-white font-bold">Admissions & CAS</h4>
+            <ul class="space-y-2.5 text-sm text-slate-300">
+              <li>
+                <a href="#applicant-dashboard" class="hover:text-white transition-colors flex items-center gap-1.5">
+                  <i class="fa-solid fa-file-shield text-indigo-400 text-xs"></i>
+                  <span>CAS Offer Portal</span>
+                </a>
+              </li>
+              <li><button onclick="openModal('consultation-modal')" class="hover:text-white transition-colors text-left cursor-pointer">Book Free Diagnostic</button></li>
+              <li><a href="#about" class="hover:text-white transition-colors">About Global Path</a></li>
+              <li><a href="#contact" class="hover:text-white transition-colors">Advisory Council</a></li>
+              <li><button onclick="showToast('Admissions for Fall 2026 Cohort close on October 31, 2026.')" class="hover:text-white transition-colors text-left cursor-pointer">Enrollment Timelines</button></li>
+            </ul>
+          </div>
+
+          <!-- Campuses & Contact Details -->
+          <div class="md:col-span-3 space-y-4">
+            <h4 class="text-xs uppercase tracking-wider text-white font-bold">Campuses & Contacts</h4>
+            <div class="space-y-3.5 text-xs text-slate-300 leading-relaxed">
+              <div class="p-2.5 rounded-xl bg-white/5 border border-white/10 shadow-sm">
+                <p class="font-bold text-white flex items-center gap-1.5 mb-1">
+                  <i class="fa-solid fa-building-columns text-indigo-400"></i>
+                  <span>Oxford Academic Bureau:</span>
+                </p>
+                <p class="text-slate-300">14 St. Giles, Oxford OX1 3JS, United Kingdom</p>
+                <p class="mt-1">
+                  <a href="tel:+441865270000" class="text-indigo-400 font-mono font-semibold hover:underline">
+                    +44 (0) 1865 270000
+                  </a>
+                </p>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-white/5 border border-white/10 shadow-sm">
+                <p class="font-bold text-white flex items-center gap-1.5 mb-1">
+                  <i class="fa-solid fa-landmark text-indigo-400"></i>
+                  <span>London Auditorium:</span>
+                </p>
+                <p class="text-slate-300">Russell Square, Bloomsbury, London WC1B 5DN</p>
+                <p class="mt-1">
+                  <a href="tel:+442078628000" class="text-indigo-400 font-mono font-semibold hover:underline">
+                    +44 (0) 20 7862 8000
+                  </a>
+                </p>
+              </div>
+
+              <div class="pt-1">
+                <span class="font-semibold text-white mr-1.5">Direct Inquiry:</span>
+                <a href="mailto:admissions@voxacademy.edu" class="text-indigo-400 hover:underline font-mono font-semibold">
+                  admissions@voxacademy.edu
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+          <div>
+            © 2026 VoxAcademy & Global Path Education. All rights reserved.
+          </div>
+          <div class="flex flex-wrap items-center gap-6">
+            <button onclick="showToast('VoxAcademy maintains strict student confidentiality and ISO/IEC 27001 compliance.')" class="hover:text-white cursor-pointer">
+              Privacy Notice
+            </button>
+            <button onclick="showToast('All academic terms comply with UK Higher Education and UKVI Tier 4 CAS mandates.')" class="hover:text-white cursor-pointer">
+              Terms & Conditions
+            </button>
+            <button onclick="showToast('Accredited by the International Federation of Speech, Rhetoric and Debate.')" class="hover:text-white cursor-pointer">
+              Accreditation
+            </button>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ==========================================================================
+         MODALS & OVERLAYS
+         ========================================================================== -->
+
+    <!-- 1. Auth Modal (Sign In / Register) -->
+    <div id="auth-modal" class="modal-overlay" dir="ltr">
+      <div class="relative w-full max-w-md bg-[#121826] border border-white/15 rounded-2xl p-6 sm:p-8 shadow-2xl text-left animate-fade-in">
+        <button 
+          onclick="closeModal('auth-modal')"
+          class="absolute top-5 right-5 text-slate-400 hover:text-white cursor-pointer"
+        >
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+
+        <!-- Tabs -->
+        <div class="flex border-b border-white/10 mb-6">
+          <button 
+            id="auth-tab-signin"
+            onclick="switchAuthTab('signin')"
+            class="flex-1 pb-3 text-sm font-semibold transition-colors cursor-pointer text-indigo-400 border-b-2 border-indigo-500"
+          >
+            Sign In
+          </button>
+          <button 
+            id="auth-tab-signup"
+            onclick="switchAuthTab('signup')"
+            class="flex-1 pb-3 text-sm font-semibold transition-colors cursor-pointer text-slate-400 hover:text-white"
+          >
+            Create Account
+          </button>
+        </div>
+
+        <h3 id="auth-modal-title" class="text-xl font-bold text-white mb-2">
+          Welcome Back to Vox
+        </h3>
+        <p id="auth-modal-desc" class="text-xs text-slate-300 mb-6 font-normal">
+          Access your course auditoriums, debate drills, and coach feedback.
+        </p>
+
+        <form id="auth-form" class="space-y-4">
+          <div id="auth-name-field" style="display: none;">
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Full Name</label>
+            <input 
+              type="text" 
+              placeholder="Marcus Vance"
+              class="w-full px-4 py-2.5 rounded-lg bg-[#0e131f] border border-white/15 focus:border-indigo-500 text-white text-sm outline-none transition-colors"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Email Address</label>
+            <input 
+              id="auth-email"
+              type="email" 
+              required 
+              placeholder="scholar@university.edu"
+              class="w-full px-4 py-2.5 rounded-lg bg-[#0e131f] border border-white/15 focus:border-indigo-500 text-white text-sm outline-none transition-colors"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Password</label>
+            <input 
+              type="password" 
+              required 
+              placeholder="••••••••••••"
+              class="w-full px-4 py-2.5 rounded-lg bg-[#0e131f] border border-white/15 focus:border-indigo-500 text-white text-sm outline-none transition-colors"
+            />
+          </div>
+
+          <button 
+            id="auth-submit-btn"
+            type="submit"
+            class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-sm font-semibold shadow-lg shadow-indigo-600/30 transition-all cursor-pointer mt-2 border border-indigo-400/30"
+          >
+            Sign In to Portal
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 2. Video Player Modal -->
+    <div id="video-modal" class="modal-overlay" dir="ltr">
+      <div class="relative w-full max-w-4xl bg-gray-950 border border-white/20 rounded-2xl overflow-hidden shadow-2xl animate-fade-in">
+        <button 
+          onclick="closeModal('video-modal')"
+          class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 text-slate-300 hover:text-white flex items-center justify-center border border-white/10 cursor-pointer"
+        >
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+
+        <div class="relative aspect-video bg-black flex items-center justify-center">
+          <img 
+            src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1600&auto=format&fit=crop" 
+            alt="Showcase Stage"
+            class="w-full h-full object-cover opacity-90"
+          />
+
+          <button 
+            onclick="toggleVideoPlay()"
+            class="absolute inset-0 flex items-center justify-center group cursor-pointer focus:outline-none"
+          >
+            <div class="w-20 h-20 rounded-full bg-indigo-600/90 text-white flex items-center justify-center shadow-2xl border border-white/20 group-hover:scale-110 transition-transform">
+              <i id="video-overlay-icon" class="fa-solid fa-pause text-2xl"></i>
+            </div>
+          </button>
+
+          <!-- Player Bar Controls -->
+          <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black via-black/80 to-transparent p-4 sm:p-6 flex flex-col gap-2">
+            <div 
+              class="w-full bg-white/20 h-1.5 rounded-full overflow-hidden cursor-pointer"
+              onclick="handleVideoScrub(event)"
+            >
+              <div id="video-progress-bar" class="bg-indigo-500 h-full rounded-full transition-all" style="width: 38%;"></div>
+            </div>
+
+            <div class="flex items-center justify-between text-xs text-slate-300">
+              <div class="flex items-center gap-4">
+                <button onclick="toggleVideoPlay()" class="hover:text-white cursor-pointer">
+                  <i id="video-play-icon" class="fa-solid fa-pause"></i>
+                </button>
+                <button onclick="toggleVideoMute()" class="hover:text-white cursor-pointer">
+                  <i id="video-mute-icon" class="fa-solid fa-volume-high"></i>
+                </button>
+                <span>01:14 / 02:45</span>
+              </div>
+              <div class="font-medium text-white flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                <span>Vox Keynote Masterclass Series</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Program Detail Modal -->
+    <div id="program-modal" class="modal-overlay" dir="ltr">
+      <div class="relative w-full max-w-2xl bg-[#121826] border border-white/15 rounded-2xl p-6 sm:p-8 shadow-2xl text-left max-h-[90vh] overflow-y-auto animate-fade-in">
+        <button 
+          onclick="closeModal('program-modal')"
+          class="absolute top-5 right-5 text-slate-400 hover:text-white cursor-pointer"
+        >
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+
+        <span id="modal-program-badge" class="inline-block px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-semibold border border-indigo-500/20 mb-3">
+          Syllabus
+        </span>
+
+        <h3 id="modal-program-title" class="text-2xl sm:text-3xl font-bold text-white mb-2">Program Title</h3>
+        <p id="modal-program-duration" class="text-xs text-indigo-400 font-medium mb-4">Duration</p>
+
+        <p id="modal-program-desc" class="text-slate-300 text-sm leading-relaxed mb-6 font-normal">
+          Description
+        </p>
+
+        <div class="mb-6">
+          <h4 class="text-xs uppercase tracking-wider text-slate-300 font-semibold mb-3">Curriculum Syllabus</h4>
+          <ul id="modal-program-modules" class="space-y-2.5 text-sm text-slate-300">
+            <!-- Dynamically populated -->
+          </ul>
+        </div>
+
+        <div class="pt-4 border-t border-white/10 flex items-center justify-end gap-3">
+          <button 
+            onclick="closeModal('program-modal')"
+            class="px-4 py-2 text-sm text-slate-400 hover:text-white cursor-pointer"
+          >
+            Close
+          </button>
+          <button 
+            onclick="closeModal('program-modal'); openModal('consultation-modal')"
+            class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-sm font-semibold transition-colors cursor-pointer border border-indigo-400/30"
+          >
+            Book Consultation for Program
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Trainer Profile Modal -->
+    <div id="trainer-modal" class="modal-overlay" dir="ltr">
+      <div class="relative w-full max-w-2xl bg-[#121826] border border-white/15 rounded-2xl p-6 sm:p-8 shadow-2xl text-left max-h-[90vh] overflow-y-auto animate-fade-in">
+        <button 
+          onclick="closeModal('trainer-modal')"
+          class="absolute top-5 right-5 text-slate-400 hover:text-white cursor-pointer"
+        >
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-6">
+          <img 
+            id="modal-trainer-img"
+            src="" 
+            alt="Trainer" 
+            class="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl object-cover border border-white/20 shadow-xl"
+          />
+          <div class="text-center sm:text-left">
+            <span id="modal-trainer-badge" class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-semibold border border-indigo-500/20 inline-block mb-2">
+              Badge
+            </span>
+            <h3 id="modal-trainer-name" class="text-2xl font-bold text-white mb-1">Trainer Name</h3>
+            <p id="modal-trainer-role" class="text-indigo-400 text-sm font-medium">Role</p>
+            <p id="modal-trainer-exp" class="text-slate-400 text-xs mt-1">Experience</p>
+          </div>
+        </div>
+
+        <p id="modal-trainer-bio" class="text-slate-300 text-sm leading-relaxed mb-6 font-normal">
+          Bio description...
+        </p>
+
+        <div class="mb-6">
+          <h4 class="text-xs uppercase tracking-wider text-slate-300 font-semibold mb-3">Distinctions & Academic Leadership</h4>
+          <ul id="modal-trainer-credentials" class="space-y-2 text-sm text-slate-300">
+            <!-- Dynamically populated -->
+          </ul>
+        </div>
+
+        <div class="pt-4 border-t border-white/10 flex items-center justify-end gap-3">
+          <button 
+            onclick="closeModal('trainer-modal')"
+            class="px-4 py-2 text-sm text-slate-400 hover:text-white cursor-pointer"
+          >
+            Close
+          </button>
+          <button 
+            onclick="closeModal('trainer-modal'); openModal('consultation-modal')"
+            class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-sm font-semibold transition-colors cursor-pointer border border-indigo-400/30"
+          >
+            Request 1-on-1 Coaching
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Read Our Story Modal -->
+    <div id="story-modal" class="modal-overlay" dir="ltr">
+      <div class="relative w-full max-w-2xl bg-[#121826] border border-white/15 rounded-2xl p-6 sm:p-8 shadow-2xl text-left max-h-[90vh] overflow-y-auto animate-fade-in">
+        <button 
+          onclick="closeModal('story-modal')"
+          class="absolute top-5 right-5 text-slate-400 hover:text-white cursor-pointer"
+        >
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+
+        <span class="inline-block px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-semibold border border-indigo-500/20 mb-3">
+          The Genesis of Vox & Global Path Education
+        </span>
+
+        <h3 class="text-2xl sm:text-3xl font-bold text-white mb-4">The VoxAcademy Heritage</h3>
+
+        <div class="space-y-4 text-sm text-slate-300 leading-relaxed font-normal">
+          <p>
+            VoxAcademy was founded by a coalition of Oxford and Cambridge Union champions alongside executive voice trainers from London and New York. Frustrated by superficial presentation courses that merely taught hand gestures without addressing the underlying cognitive mechanisms of argumentation, they engineered the <em>Vox Persuasion Framework</em> in partnership with Global Path Education.
+          </p>
+          <p>
+            Over the past decade, the Academy has trained world champions at the World Universities Debating Championship (WUDC), guided TEDx speakers to tens of millions of views, and coached corporate executives through billion-dollar IPO roadshows and crisis press conferences.
+          </p>
+          <p>
+            Our philosophy remains unchanged: eloquence is not an innate gift granted to a select few; it is a rigorous, trainable discipline combining cognitive clarity, emotional calibration, and acoustic command.
+          </p>
+        </div>
+
+        <div class="pt-6 border-t border-white/10 flex items-center justify-end mt-6">
+          <button 
+            onclick="closeModal('story-modal')"
+            class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-sm font-semibold transition-colors cursor-pointer border border-indigo-400/30"
+          >
+            Close Story
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Book Free Consultation Modal with Strict Phone Validation -->
+    <div id="consultation-modal" class="modal-overlay" dir="ltr">
+      <div class="relative w-full max-w-lg bg-[#121826] border border-white/15 rounded-2xl p-6 sm:p-8 shadow-2xl text-left max-h-[90vh] overflow-y-auto animate-fade-in">
+        <button 
+          onclick="closeModal('consultation-modal')"
+          class="absolute top-5 right-5 text-slate-400 hover:text-white cursor-pointer"
+        >
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+
+        <div class="mb-6">
+          <span class="inline-block px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-semibold border border-indigo-500/20 mb-2">
+            Admissions & Speech Assessment
+          </span>
+          <h3 class="text-2xl font-bold text-white mb-1">Book Free Consultation</h3>
+          <p class="text-xs text-slate-300 font-normal">
+            Speak with an Oxford or Cambridge Union debate coach to map your 2026 public speaking goals.
+          </p>
+        </div>
+
+        <form id="consultation-form" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                Preferred Date *
+              </label>
+              <input 
+                type="date" 
+                required 
+                class="w-full px-3.5 py-2.5 rounded-lg bg-[#0e131f] border border-white/15 focus:border-indigo-500 text-white text-xs outline-none transition-colors"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                Time Slot *
+              </label>
+              <select class="w-full px-3.5 py-2.5 rounded-lg bg-[#0e131f] border border-white/15 focus:border-indigo-500 text-white text-xs outline-none transition-colors">
+                <option value="10:00 AM BST">10:00 AM BST</option>
+                <option value="02:00 PM BST">02:00 PM BST</option>
+                <option value="05:30 PM BST">05:30 PM BST</option>
+                <option value="08:00 PM BST">08:00 PM BST</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+              Full Legal Name *
+            </label>
+            <input 
+              type="text" 
+              required 
+              placeholder="Marcus Vance"
+              class="w-full px-4 py-2.5 rounded-lg bg-[#0e131f] border border-white/15 focus:border-indigo-500 text-white text-sm outline-none transition-colors"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+              Email Address *
+            </label>
+            <input 
+              type="email" 
+              required 
+              placeholder="scholar@university.edu"
+              class="w-full px-4 py-2.5 rounded-lg bg-[#0e131f] border border-white/15 focus:border-indigo-500 text-white text-sm outline-none transition-colors"
+            />
+          </div>
+
+          <!-- Strict Phone Validation Field -->
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                Telephone Number *
+              </label>
+              <span class="text-[11px] text-slate-400 font-normal">Numbers only (7–15 digits)</span>
+            </div>
+            <input 
+              id="consult-phone"
+              type="tel" 
+              required 
+              placeholder="+44 20 7946 0991"
+              class="w-full px-4 py-2.5 rounded-lg bg-[#0e131f] border border-white/15 focus:border-indigo-500 text-white text-sm outline-none transition-colors"
+            />
+            <p id="consult-phone-error" class="text-xs text-rose-400 mt-1.5 flex items-center gap-1 font-medium hidden">
+              <!-- Dynamically populated -->
+            </p>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+              Target Program
+            </label>
+            <select class="w-full px-4 py-2.5 rounded-lg bg-[#0e131f] border border-white/15 focus:border-indigo-500 text-white text-xs outline-none transition-colors">
+              <option value="Executive Presence">Executive Presence</option>
+              <option value="Competitive Debate">Competitive Debate</option>
+              <option value="Mastering the Stage">Mastering the Stage</option>
+              <option value="Interview Mastery">Interview Mastery</option>
+              <option value="CAS Admissions Review">CAS Admissions Review</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+              Notes or Specific Goals
+            </label>
+            <textarea 
+              rows="2"
+              placeholder="Tell us about your upcoming speech, debate tournament, or admissions deadline..."
+              class="w-full px-4 py-2 rounded-lg bg-[#0e131f] border border-white/15 focus:border-indigo-500 text-white text-xs outline-none transition-colors"
+            ></textarea>
+          </div>
+
+          <button 
+            type="submit"
+            class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-sm font-semibold shadow-lg shadow-indigo-600/30 transition-all cursor-pointer mt-2 border border-indigo-400/30"
+          >
+            Confirm Consultation Booking
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 7. CAS Offer PDF Viewer / Official Certificate Modal -->
+    <div id="cas-pdf-modal" class="modal-overlay" dir="ltr">
+      <div class="relative w-full max-w-4xl bg-[#121826] border border-white/20 rounded-2xl p-6 sm:p-8 shadow-2xl text-left max-h-[92vh] overflow-y-auto animate-fade-in">
+        
+        <!-- Modal Top Bar -->
+        <div class="flex items-center justify-between pb-4 mb-6 border-b border-white/10 no-print">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-lg shadow-md">
+              <i class="fa-solid fa-file-shield"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white">Confirmation of Acceptance for Studies (CAS)</h3>
+              <p class="text-xs text-slate-400">UKVI Approved Official Matriculation & Student Route Verification</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button
+              onclick="printCasDocument()"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition-colors shadow-sm cursor-pointer"
+            >
+              <i class="fa-solid fa-print"></i>
+              <span>Print / Save PDF</span>
+            </button>
+            <button
+              onclick="openCasInNewTab()"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-200 bg-white/10 hover:bg-white/15 border border-white/10 transition-colors cursor-pointer"
+            >
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              <span>Open in New Tab</span>
+            </button>
+            <button
+              onclick="closeModal('cas-pdf-modal')"
+              class="w-8 h-8 rounded-lg text-slate-400 hover:text-white flex items-center justify-center cursor-pointer ml-2"
+            >
+              <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Official CAS Document Paper Layout -->
+        <div id="cas-statement-content" class="bg-white text-slate-900 rounded-xl p-6 sm:p-10 shadow-2xl border border-slate-200 font-sans">
+          
+          <!-- Document Header -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-2 border-indigo-600 pb-6 mb-6">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="font-extrabold text-xl tracking-tight text-slate-900">GLOBAL PATH EDUCATION</span>
+                <span class="text-indigo-600 font-bold">•</span>
+                <span class="font-bold text-indigo-600 text-lg">VOXACADEMY</span>
+              </div>
+              <p class="text-xs text-slate-600 font-medium">UK Visas & Immigration Compliance Registry • Higher Education Sponsor</p>
+              <p class="text-[11px] text-slate-500 mt-0.5">Campus Bureau: 14 St. Giles, Oxford OX1 3JS / Russell Sq, London WC1B</p>
+            </div>
+
+            <div class="sm:text-right">
+              <span class="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-300 mb-1">
+                OFFICIAL CAS STATEMENT
+              </span>
+              <p class="text-xs text-slate-600">CAS Reference Number:</p>
+              <p id="cas-number-header-val" class="font-mono text-sm font-bold text-indigo-600">CAS-GB-8849102-VX</p>
+            </div>
+          </div>
+
+          <!-- Section 1: Tier 4 Sponsorship Particulars -->
+          <div class="mb-6 p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-indigo-800 mb-3 flex items-center gap-1.5">
+              <i class="fa-solid fa-stamp"></i>
+              <span>1. CAS Reference & Sponsor Registry</span>
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+              <div>
+                <span class="block text-slate-500 font-semibold mb-0.5">CAS Assigned Number</span>
+                <span id="cas-number-val" class="font-mono font-bold text-slate-900">CAS-GB-8849102-VX</span>
+              </div>
+              <div>
+                <span class="block text-slate-500 font-semibold mb-0.5">Application Reference</span>
+                <span id="cas-app-id-val" class="font-mono font-bold text-indigo-600">GPA-2026-0814</span>
+              </div>
+              <div>
+                <span class="block text-slate-500 font-semibold mb-0.5">Date CAS Assigned</span>
+                <span id="cas-date-val" class="font-bold text-slate-900">12 Sep 2026</span>
+              </div>
+              <div>
+                <span class="block text-slate-500 font-semibold mb-0.5">UKVI Sponsor License No</span>
+                <span class="font-mono font-bold text-slate-900">SLN-8849-VXGP</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Candidate Particulars -->
+          <div class="mb-6 p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-indigo-800 mb-3 flex items-center gap-1.5">
+              <i class="fa-solid fa-user-check"></i>
+              <span>2. Applicant Personal Details</span>
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+              <div>
+                <span class="block text-slate-500 font-semibold mb-0.5">Full Legal Name</span>
+                <span id="cas-candidate-name" class="font-bold text-slate-900 text-sm">Marcus Vance</span>
+              </div>
+              <div>
+                <span class="block text-slate-500 font-semibold mb-0.5">Registered Email</span>
+                <span id="cas-candidate-email" class="font-bold text-slate-900">m.vance@oxfordalumni.org</span>
+              </div>
+              <div>
+                <span class="block text-slate-500 font-semibold mb-0.5">Offer Status</span>
+                <span id="cas-status-val" class="font-bold text-emerald-700">Issued (Ready for Visa Filing)</span>
+              </div>
+              <div>
+                <span class="block text-slate-500 font-semibold mb-0.5">English Language Competency</span>
+                <span class="font-bold text-slate-900">CEFR C2 / Union Debate Exempt</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Course & Fee Details -->
+          <div class="mb-6 p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-indigo-800 mb-3 flex items-center gap-1.5">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <span>3. Course of Study & Financial Clearance</span>
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+              <div>
+                <span class="block text-slate-500 font-semibold mb-0.5">Enrolled Course Title</span>
+                <span id="cas-course-val" class="font-bold text-slate-900">Executive Presence & Leadership Rhetoric</span>
+              </div>
+              <div>
+                <span class="block text-slate-500 font-semibold mb-0.5">Admitting Institution / Campus</span>
+                <span id="cas-inst-val" class="font-bold text-slate-900">VoxAcademy Center Oxford</span>
+              </div>
+              <div>
+                <span class="block text-slate-500 font-semibold mb-0.5">Academic Level</span>
+                <span class="font-bold text-slate-900">RQF Level 7 / Postgrad Leadership Certificate</span>
+              </div>
+              <div>
+                <span class="block text-slate-500 font-semibold mb-0.5">Total Course Tuition</span>
+                <span class="font-mono font-bold text-slate-900">£8,500.00 GBP</span>
+              </div>
+              <div>
+                <span class="block text-slate-500 font-semibold mb-0.5">Course Fees Paid to Date</span>
+                <span class="font-mono font-bold text-emerald-700">£8,500.00 GBP (100% Cleared)</span>
+              </div>
+              <div>
+                <span class="block text-slate-500 font-semibold mb-0.5">Accommodation Fees Paid</span>
+                <span class="font-mono font-bold text-slate-900">£1,200.00 GBP (First Month Cleared)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Official Stamp & Legal Certifications -->
+          <div class="pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-slate-600">
+            <div class="space-y-1">
+              <p class="font-semibold text-slate-900">Declaration of Academic Compliance:</p>
+              <p class="text-[11px] max-w-md leading-relaxed text-slate-600">
+                This document serves as an electronic verification of the candidate's Confirmation of Acceptance for Studies under the UK Student Visa (Tier 4) regulatory framework. Verified by Global Path Education Admissions Council.
+              </p>
+            </div>
+
+            <!-- Digital Seal -->
+            <div class="flex-shrink-0 text-center p-3 rounded-xl border-2 border-dashed border-indigo-500 bg-indigo-50/50">
+              <i class="fa-solid fa-certificate text-indigo-600 text-2xl mb-1"></i>
+              <p class="font-mono text-[10px] font-bold text-indigo-900 uppercase">OFFICIALLY SIGNED & SEALED</p>
+              <p class="text-[9px] text-slate-600">Dr. Amara Singh, Academic Registrar</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================== TOAST NOTIFICATION CONTAINER ==================== -->
+    <div id="toast-notification" class="fixed bottom-6 right-6 z-[10001] flex items-center gap-3 px-5 py-3 rounded-xl bg-[#121826] text-white shadow-2xl border border-indigo-500/40 text-sm hidden animate-fade-in" dir="ltr">
+      <i class="fa-solid fa-circle-check text-emerald-400"></i>
+      <span>Notification Message</span>
+    </div>
+
+    <!-- Standalone JavaScript Script -->
+    <script src="./script.js"></script>
   </body>
 </html>
